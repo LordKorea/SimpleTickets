@@ -1,0 +1,121 @@
+main: io.gitlab.lordkorea.simpletickets.SimpleTicketsPlugin
+name: SimpleTickets
+version: 1.0.0
+
+description: This plugin adds a preconfigured ticket system.
+api-version: "1.13"
+author: LordKorea
+website: "https://lordkorea.gitlab.io"
+
+commands:
+  ticket:
+    description: Contains all subcommands for creating and managing tickets
+    aliases: [issue, t]
+    permission: simpletickets.use
+
+permissions:
+  simpletickets.admin:
+    description: Contains all permissions usually needed for admins.
+    default: op
+    children:
+      simpletickets.claim.claimed: true
+      simpletickets.claim.override: true
+      simpletickets.reopen.others: true
+      simpletickets.staff: true
+      simpletickets.stats.others: true
+      simpletickets.tier.*.escalate: true
+      simpletickets.tier.*.interact: true
+      simpletickets.tier.*.notify: true
+      simpletickets.unclaim.manage: true
+  simpletickets.check.list:
+    description: Needed for seeing the list of open tickets one can interact with.
+  simpletickets.check.others:
+    description: Needed for checking the status of tickets owned by arbitrary players.
+  simpletickets.check.own:
+    description: Needed for checking the status of owned tickets.
+  simpletickets.claim.claimed:
+    description: Needed for claiming tickets that are already claimed.
+  simpletickets.claim.others:
+    description: Needed for claiming tickets owned by arbitrary players.
+  simpletickets.claim.override:
+    description: Needed for interacting with claimed tickets that are neither claimed nor owned by the player.
+  simpletickets.claim.own:
+    description: Needed for claiming own tickets.
+  simpletickets.claim.without:
+    description: Needed for interacting with tickets even when they are neither claimed nor owned by the player.
+  simpletickets.close.others:
+    description: Needed for closing tickets owned by arbitrary players.
+  simpletickets.close.own:
+    description: Needed for closing owned tickets.
+  simpletickets.comment.nolimit:
+    description: Needed for ignoring the minimum character and word limits for comments.
+  simpletickets.comment.others:
+    description: Needed for commenting on tickets owned by arbitrary players.
+  simpletickets.comment.own:
+    description: Needed for commenting on owned tickets.
+  simpletickets.create:
+    description: Needed for creating tickets.
+  simpletickets.escalate.others:
+    description: Needed for escalating tickets owned by arbitrary players.
+  simpletickets.escalate.own:
+    description: Needed for escalating owned tickets.
+  simpletickets.feedback:
+    description: Needed for detailed permission feedback.
+  simpletickets.goto.others:
+    description: Needed for teleporting to tickets owned by arbitrary players.
+  simpletickets.goto.own:
+    description: Needed for teleporting to owned tickets.
+  simpletickets.goto.transfer:
+    description: Needed for teleporting to tickets on different servers in a multi-server environment.
+  simpletickets.notify.closedown:
+    description: Needed for being notified about owned closed tickets. This will override simpletickets.notify.own.
+  simpletickets.notify.others:
+    description: Needed for being notified about open tickets owned by arbitrary players.
+  simpletickets.notify.own:
+    description: Needed for being notified about owned open tickets.
+  simpletickets.player:
+    description: Contains all permissions usually needed for players.
+    default: true
+    children:
+      simpletickets.check.list: true
+      simpletickets.check.own: true
+      simpletickets.close.own: true
+      simpletickets.comment.own: true
+      simpletickets.create: true
+      simpletickets.escalate.others: true
+      simpletickets.notify.closedown: true
+      simpletickets.use: true
+  simpletickets.reopen.others:
+    description: Needed for reopening tickets owned by arbitrary players.
+  simpletickets.reopen.own:
+    description: Needed for reopening own tickets.
+  simpletickets.staff:
+    description: Contains all permissions usually needed for staff.
+    default: op
+    children:
+      simpletickets.check.others: true
+      simpletickets.claim.others: true
+      simpletickets.claim.without: true
+      simpletickets.close.others: true
+      simpletickets.comment.nolimit: true
+      simpletickets.comment.others: true
+      simpletickets.feedback: true
+      simpletickets.goto.others: true
+      simpletickets.goto.transfer: true
+      simpletickets.player: true
+      simpletickets.tier.admin.escalate: true
+      simpletickets.tier.base.interact: true
+      simpletickets.tier.base.notify: true
+      simpletickets.unclaim.others: true
+  simpletickets.stats.others:
+    description: Needed for checking ticket stats of arbitrary players.
+  simpletickets.stats.own:
+    description: Needed for checking ticket stats of the player themselves.
+  simpletickets.unclaim.manage:
+    description: Needed for unclaiming tickets claimed by arbitrary players.
+  simpletickets.unclaim.others:
+    description: Needed for unclaiming tickets owned by arbitrary players.
+  simpletickets.unclaim.own:
+    description: Needed for unclaiming own tickets.
+  simpletickets.use:
+    description: Needed for using any features of this plugin.

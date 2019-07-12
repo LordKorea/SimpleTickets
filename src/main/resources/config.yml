@@ -1,0 +1,166 @@
+# Data storage configuration.
+storage:
+
+  # Specify which profile you want to use. Default profiles are flatfile, mysql. Note that currently only the "mysql"
+  # profile supports multi-server environments.
+  profile: flatfile
+
+  # Configure existing profiles here.
+  profiles:
+
+    # The default flatfile profile which saves tickets to a file.
+    flatfile:
+
+      # Do not change this setting.
+      type: file
+
+      # The file in which tickets are stored.
+      path: tickets.yml
+
+    # The default mysql profile which saves tickets to a database.
+    mysql:
+
+      # Do not change this setting.
+      type: mysql
+
+      # The database server hostname or IP address.
+      host: localhost
+
+      # The database management system's port.
+      port: 3306
+
+      # The name of the database.
+      database: minecraft
+
+      # The username to be used to access the database.
+      user: minecraft
+
+      # The password used for the user.
+      password: hunter2
+
+      # The table prefix for tables of the plugin. Useful if you have multiple distinct ticket systems accessing the
+      # same database.
+      table_prefix: simpletickets_
+
+
+# Multi-server compatibility settings. Remember to use a storage backend that supports multi-server environments!
+# If you do not use a multi-server environment, do not edit the settings in this section.
+# If you are unsure what to do here, do not edit the settings in this section.
+proxy:
+
+  # Pick which proxy you use. Currently supported options are none, bungee.
+  software: none
+
+  # Pick the name of the server this plugin is running on.
+  # If you need to pick this name dynamically for any reason, you can set the property
+  #   -Dio.lordkorea.gitlab.simpletickets.ServerName=<name>
+  # when starting your server. If in doubt, just set the server name here.
+  server-name: hub
+
+
+# Ticket tiers. Tiers can be used to create a multi-tier ticket system. The default contains two tiers, base
+# and admin. All staff members (permission simpletickets.staff) can handle base-tier tickets while only admins
+# (permission simpletickets.admin) can handle admin-tier tickets.
+#
+# In order to interact with tickets in a tier with name <name> staff needs the permission
+#   simpletickets.tier.<name>.interact
+# In order to escalate tickets into a tier with name <name> staff needs the permission
+#   simpletickets.tier.<name>.escalate
+# In order to be notified about open tickets in a tier with name <name> staff needs the permission
+#   simpletickets.tier.<name>.notify
+# This permission will always be set for the player who owns the ticket.
+# If you use * instead of <name> in any of these permissions, the permission will apply for all tiers.
+#
+# Each tier can also have a ladder-up tier. Using just /ticket escalate <id> will then be a shorthand for escalating the
+# ticket with id <id> into the ladder-up tier of the tier it is currently in. If the tier the ticket is currently in has
+# no ladder-up tier, then this command will yield an error.
+#
+# By default, permissions for interacting with the base tier are given to staff (permission simpletickets.staff). Staff
+# (permission simpletickets.staff) can also escalate to the admin tier. Tickets in the admin tier can only be interacted
+# with by admins (permission simpletickets.admin). Admins (permission simpletickets.admin) can also escalate tickets
+# back into the base tier.
+tiers:
+
+  # The tier newly created tickets will have.
+  default-tier: base
+
+  # In here you can modify existing tiers or create new tiers.
+  tiers:
+
+    # The configuration for the base tier.
+    base:
+
+      # Using /ticket escalate <id> on a ticket in the base tier will escalate it into the admin tier.
+      ladder-up: admin
+
+      # The display name of this tier.
+      display: New
+
+    # The configuration for the admin tier.
+    admin:
+
+      # The display name of this tier.
+      display: Admin
+
+
+# Settings for commenting on tickets.
+comments:
+
+  # The minimum length (including spaces) for a comment, in characters.
+  min-length: 10
+
+  # The minimum amount of words (space-separated) for a comment.
+  min-words: 1
+
+  # The minimum amount of words (space-separated) for a comment when creating a new ticket.
+  min-new-words: 5
+
+  # Allow to close, reopen, claim, unclaim or escalate tickets without requiring a comment.
+  no-comment-on-interact: true
+
+
+# Settings for ticket statistics.
+stats:
+
+  # The timespans over which statistics are accumulated. Defaults to 1 day, 7 days, 30 days.
+  compile-stats: [1, 7, 30]
+
+  # If this is true, only claimed tickets are considered for statistics. Otherwise, all closed tickets are considered.
+  only-claimed: false
+
+
+# Settings for open ticket notifications.
+notifications:
+
+  # If this is true, players will be notified of open tickets on login. Control which players see which tickets via
+  # permissions.
+  on-login: true
+
+  # If this is true, players will be notified of open tickets when a ticket visible to them is created. Control which
+  # players see which tickets via permissions.
+  on-create: true
+
+  # Settings for time-based notifications.
+  timed:
+
+    # If this is true, players will be notified of open tickets every X seconds. Control which players see which tickets
+    # via permissions.
+    use-timed: true
+
+    # The period in seconds between notifications. By default this is 300 seconds (5 minutes).
+    seconds: 300
+
+
+# Housekeeping settings.
+housekeeping:
+
+  # Settings for auto-resolving tickets after a certain time.
+  auto-resolve:
+
+    # If this is true, tickets that are closed are marked as resolved after a certain time. Resolved tickets are not
+    # pre-loaded by the server. Tickets are normally marked as resolved once they are closed and checked by their owner.
+    enable: true
+
+    # The interval in seconds before tickets are auto-resolved after being closed. By default this is 2419200 seconds
+    # (4 weeks).
+    interval: 2419200
