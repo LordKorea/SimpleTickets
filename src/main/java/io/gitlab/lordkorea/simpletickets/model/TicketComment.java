@@ -1,5 +1,8 @@
 package io.gitlab.lordkorea.simpletickets.model;
 
+import io.gitlab.lordkorea.simpletickets.SimpleTicketsPlugin;
+import org.bukkit.Bukkit;
+
 import java.util.UUID;
 
 /**
@@ -32,7 +35,9 @@ public class TicketComment extends TicketHistoryEntry {
 
     @Override
     public String getDisplayString() {
-        // TODO use i18n file for this
-        return null;
+        final String timestamp = getFormattedTimestamp();
+        final String authorName = Bukkit.getOfflinePlayer(author).getName();
+        return SimpleTicketsPlugin.getMessageManager().format("simpletickets.format.comment", timestamp,
+                authorName, content);
     }
 }

@@ -5,6 +5,7 @@ import org.bukkit.plugin.Plugin;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Properties;
 
 /**
@@ -56,5 +57,16 @@ public class MessageManager {
         } catch (final IOException ex) {
             throw new IllegalStateException("Unable to load plugin messages from " + messageFile, ex);
         }
+    }
+
+    /**
+     * Formats a message.
+     *
+     * @param fmt  The message format to use. If not found, the message will consist of this format.
+     * @param data The data for formatting.
+     * @return The formatted message.
+     */
+    public String format(final String fmt, final Object... data) {
+        return MessageFormat.format(messages.getProperty(fmt, fmt), data);
     }
 }
