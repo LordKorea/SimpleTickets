@@ -103,14 +103,25 @@ tiers:
       display: Admin
 
 
+# Settings for ticket limits and spam mitigation measures.
+limits:
+
+  # The minimum time needed between two tickets, in seconds. Tickets created on a different instance running on the same
+  # storage backend may take some time before being considered for this limit.
+  creation-limit: 60
+
+
 # Settings for commenting on tickets.
 comments:
 
   # The minimum length (including spaces) for a comment, in characters.
-  min-length: 10
+  min-length: 5
 
   # The minimum amount of words (space-separated) for a comment.
   min-words: 1
+
+  # The minimum length (including spaces) for a comment when creating a new ticket, in characters.
+  min-new-length: 10
 
   # The minimum amount of words (space-separated) for a comment when creating a new ticket.
   min-new-words: 5

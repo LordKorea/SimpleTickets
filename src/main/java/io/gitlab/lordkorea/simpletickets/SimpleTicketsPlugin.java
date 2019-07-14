@@ -74,5 +74,12 @@ public class SimpleTicketsPlugin extends JavaPlugin {
         // Create the ticket manager.
         // ticketManager = new TicketManager()
         // TODO need storage backend.
+        ticketManager.reloadTickets();
+        getServer().getScheduler().scheduleSyncRepeatingTask(this, ticketManager.getSynchronizationTask(),
+                20L * 5, 20L * 30);
+        // TODO make this configurable?
+
+        // TODO start notification tasks
+        // TODO need command handling
     }
 }

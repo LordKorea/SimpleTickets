@@ -57,7 +57,7 @@ public class TicketManager {
     }
 
     /**
-     * Returns the tickets that are open, i.e. have a status of
+     * Retrieves the tickets that are open, i.e. have a status of
      * {@link io.gitlab.lordkorea.simpletickets.model.TicketStatus#OPEN}.
      *
      * @return The open tickets.
@@ -69,11 +69,36 @@ public class TicketManager {
     }
 
     /**
+     * Reloads all unresolved tickets from the backend.
+     */
+    public void reloadTickets() {
+        expectTicketChanges(storageBackend.getUnresolvedTickets());
+    }
+
+    /**
+     * Retrieves the synchronization task which keeps ticket data synchronized with the backend.
+     *
+     * @return The synchronization task.
+     */
+    public Runnable getSynchronizationTask() {
+        return this::synchronizeWithBackend;
+    }
+
+    /**
      * Synchronizes tickets with the backend.
      */
     private void synchronizeWithBackend() {
+        expectTicketChanges(storageBackend.getUpdatedTickets());
+    }
+
+    /**
+     * Expects ticket changes from the given source and applies them to the cache, once ready.
+     *
+     * @param source The source of the changes.
+     */
+    private void expectTicketChanges(final CompletableFuture<Collection<Ticket>> source) {
         SimpleTicketsPlugin.createChain()
-                .future(storageBackend.getUpdatedTickets())
+                .future(source)
                 .syncLast(ts -> ts.forEach(t -> tickets.put(t.getId(), t)))
                 .execute();
     }
