@@ -1,12 +1,16 @@
 package io.gitlab.lordkorea.simpletickets.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.bukkit.Location;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 /**
- * Represents a ticket.
+ * Represents a ticket. These objects are not unique, there may exist more than one Ticket per ID, for example due to
+ * background updates.
  */
 @AllArgsConstructor
 public class Ticket {
@@ -14,7 +18,7 @@ public class Ticket {
     /**
      * The ID of the ticket.
      */
-    private final int id;
+    private @Getter final int id;
 
     /**
      * The UUID of the owner of the ticket.
@@ -42,12 +46,17 @@ public class Ticket {
     private UUID assignee;
 
     /**
-     * The status of this ticket.
+     * The history of the ticket.
      */
-    private TicketStatus status;
+    private final List<ITicketHistoryEntry> history = new ArrayList<>();
 
     /**
      * The tier of the ticket.
      */
     private TicketTier tier;
+
+    /**
+     * The status of this ticket.
+     */
+    private @Getter TicketStatus status;
 }
