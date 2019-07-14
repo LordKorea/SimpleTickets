@@ -22,6 +22,16 @@ public class SimpleTicketsPlugin extends JavaPlugin {
     private MessageManager messageManager;
 
     /**
+     * A factory for {@link co.aikar.taskchain.TaskChain}s.
+     */
+    private TaskChainFactory taskChainFactory;
+
+    /**
+     * The plugin's ticket manager.
+     */
+    private TicketManager ticketManager;
+
+    /**
      * Creates a new task chain.
      *
      * @param <T> The argument provided by the task chain. Meaningless on new chains.
@@ -40,11 +50,6 @@ public class SimpleTicketsPlugin extends JavaPlugin {
         return self.messageManager;
     }
 
-    /**
-     * A factory for {@link co.aikar.taskchain.TaskChain}s.
-     */
-    private TaskChainFactory taskChainFactory;
-
     @Override
     public void onEnable() {
         self = this;
@@ -55,9 +60,19 @@ public class SimpleTicketsPlugin extends JavaPlugin {
         // Save the default configuration if it does not exist.
         saveDefaultConfig();
 
+        // Load the ticket configuration from the config file.
+        // TODO
+
         // Create the message manager.
         messageManager = new MessageManager(this);
         messageManager.saveDefaultMessages();
         messageManager.loadMessages();
+
+        // Create the storage backend.
+        // TODO need configuration and storage backends
+
+        // Create the ticket manager.
+        // ticketManager = new TicketManager()
+        // TODO need storage backend.
     }
 }

@@ -27,6 +27,10 @@ public interface StorageBackend {
      * Retrieves tickets that have been updated in the background. If the storage backend implementation does not
      * support background updates, this must always return an empty collection.
      *
+     * A ticket is considered as updated, if it has changed in the backend since it was last queried with either
+     * this method or {@link #getUnresolvedTickets()}. Spurious updates are possible, in that situation this method
+     * returns a ticket even if it does not fulfill the requirement.
+     *
      * @return The updated tickets.
      */
     CompletableFuture<Collection<Ticket>> getUpdatedTickets();
