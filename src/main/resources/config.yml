@@ -40,7 +40,7 @@ storage:
 
       # The table prefix for tables of the plugin. Useful if you have multiple distinct ticket systems accessing the
       # same database.
-      table_prefix: simpletickets_
+      table-prefix: simpletickets_
 
 
 # Multi-server compatibility settings. Remember to use a storage backend that supports multi-server environments!
